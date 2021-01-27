@@ -89,34 +89,39 @@ public class Ships {
 		char shot = Character.toLowerCase(signCpu);
 		Scanner sc = new Scanner(System.in);
 		int i, j;
+		int n = 0;
 		boolean game = true;
 	
 		while (game) {
-			
-			System.out.println("Give shot position i: ");
-			i = sc.nextInt();
-			System.out.println("Give shot position j: ");
-			j = sc.nextInt();
+			while (true) {
+				System.out.println("PLAYER HITS (" + plHits + "/" + hitsNum + ")");
+				Board.PrintBoard(boardPlHits);
+				System.out.println("Give shot position i: ");
+				i = validateNumber(boardCpu.length);
+				
+				System.out.println("Give shot position j: ");
+				j = validateNumber(boardCpu.length);	
+				
+				if ( i >= 0 & j >= 0 & i <= 9 & j <= 9) {
+					break;
+				}
+				System.out.println("Wrong coorinates");
+				System.out.println();
+			}
 			
 			if (boardCpu[i][j] == '~' && boardPlHits[i][j] == '~') {
 				boardPlHits[i][j] = '•';
 				System.out.println("MISS!");
 				System.out.println();
-				System.out.println("PLAYER HITS");
-				Board.PrintBoard(boardPlHits);
 				break;
 			} else if (boardPlHits[i][j] == shot || boardPlHits[i][j] == '•') {
 				System.out.println("You shot this place before!");
-				System.out.println();
-				System.out.println("PLAYER HITS");
-				Board.PrintBoard(boardPlHits);
 			} else if (boardCpu[i][j] == signCpu) {
 				boardPlHits[i][j] = shot;
 				System.out.println("HIT!");
 				System.out.println();
 				plHits++;
-				System.out.println("PLAYER HITS");
-				Board.PrintBoard(boardPlHits);
+
 			}
 			
 			if (plHits == hitsNum) {
@@ -151,24 +156,22 @@ public class Ships {
 			
 			if (boardPl[i][j] == '~' && boardCpuHits[i][j] == '~') {
 				boardCpuHits[i][j] = '•';
+				boardPl[i][j] = '•';
 				System.out.println("CPU MISS at  i: " + i + " j: " + j);
 				System.out.println();
-				System.out.println("CPU HITS");
-				Board.PrintBoard(boardCpuHits);
+				System.out.println("CPU HITS (" + cpuHits + "/" + hitsNum + ")");
+				System.out.println();
 				break;
 			} else if (boardCpuHits[i][j] == shot || boardCpuHits[i][j] == '•') {
-				System.out.println("CPU shot this place before! i: " + i + " j: " + j);
-				System.out.println();
-				System.out.println("CPU HITS");
-				Board.PrintBoard(boardCpuHits);
+				System.out.println("CPU shot this place before! i: " + i + " j: " + j);	
 			} else if (boardPl[i][j] == signPl) {
 				boardCpuHits[i][j] = shot;
+				boardPl[i][j] = '•';
 				System.out.println("CPU HIT at i: " + i + " j: " + j);
-				
 				System.out.println();
 				cpuHits++;
-				System.out.println("CPU HITS");
-				Board.PrintBoard(boardCpuHits);
+				System.out.println("CPU HITS (" + cpuHits + "/" + hitsNum + ")");
+				System.out.println();
 			}
 			
 			if (cpuHits == hitsNum) {
@@ -181,5 +184,20 @@ public class Ships {
 		}
 		return cpuHits;
 	}
+	
+	 public static int validateNumber(int N) {
+	        Scanner scanner = new Scanner(System.in);
+
+	        int number;
+	        do {
+	            while (!scanner.hasNextInt()) {
+	                String input = scanner.next();
+
+	            }
+	            number = scanner.nextInt();
+	        } while (number < 0 || number > N - 1);
+
+	        return number;
+	    }
 	
 }

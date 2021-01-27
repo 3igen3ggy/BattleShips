@@ -33,11 +33,11 @@ public class BattleShips {
 			
 			
 			//how many of each battleship per player
-			int Cno = 0;
-			int Bno = 0;
-			int Dno = 0;
-			int Pno = 0;
-			int Sno = 1;
+			int Cno = 1;
+			int Bno = 2;
+			int Dno = 3;
+			int Pno = 4;
+			int Sno = 5;
 			
 			//players signs, please use uppercase
 			char signPl = 'X';
@@ -64,9 +64,10 @@ public class BattleShips {
 			Ships.spawn(boardCpu, Plength, Pno, signCpu);
 			Ships.spawn(boardPl, Slength, Sno, signPl);
 			Ships.spawn(boardCpu, Slength, Sno, signCpu);
-			
-			System.out.println("CPU");
-			Board.PrintBoard(boardCpu);
+
+			//no cheating so don't print CPU board
+//			System.out.println("CPU");
+//			Board.PrintBoard(boardCpu);
 			
 			//actual game
 			while (plHits < hitsNum && cpuHits < hitsNum) {
@@ -78,13 +79,13 @@ public class BattleShips {
 				
 
 				
-				plHits += Ships.playerShot(boardPlHits, boardCpu, signCpu, signPl, plHits, hitsNum);
+				plHits = Ships.playerShot(boardPlHits, boardCpu, signCpu, signPl, plHits, hitsNum);
 				
 				if (plHits == hitsNum || cpuHits == hitsNum) {
 					break;
 				}
 				
-				cpuHits += Ships.cpuShot(boardCpuHits, boardPl, signCpu, signPl, cpuHits, hitsNum);
+				cpuHits = Ships.cpuShot(boardCpuHits, boardPl, signCpu, signPl, cpuHits, hitsNum);
 
 			}
 			
